@@ -1,0 +1,37 @@
+const express = require("express");
+const Complaint = require("../models/Complaint");
+const { auth, adminOnly } = require("../middleware/authMiddleware");
+
+const router = express.Router();
+
+// CREATE COMPLAINT (RESIDENT)
+router.post("/", auth, async (req, res) => {
+  const complaint = new Complaint({
+    userId: req.user.id,
+    issue: req.body.issue
+  });
+
+  await complaint.save();
+  res.json({ message: "Complaint submitted" });
+});
+
+// GET MY COMPLAINTS (RESIDENT)
+router.get("/my", auth, async (req, res) => {
+  const complaints = await Complaint.find({ userId: req.user.id });
+  res.json(complaints);
+});
+
+// GET ALL COMPLAINTS (ADMIN ONLY)
+router.get("/all", auth, adminOnly, async (req, res) => {
+  const complaints = await Complaint.find();
+  res.json(complaints);
+});
+
+// UPDATE COMPLAINT STATUS (ADMIN ONLY)
+router.put("/:id/status", auth, adminOnly, async (req, res) => {
+  const { status } = req.body;
+  await Complaint.findByIdAndUpdate(req.params.id, { status });
+  res.json({ message: "Complaint status updated" });
+});
+
+module.exports = router;
