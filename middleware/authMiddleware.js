@@ -18,11 +18,14 @@ const auth = (req, res, next) => {
 
 // ADMIN ONLY MIDDLEWARE
 const adminOnly = (req, res, next) => {
-  if (!req.user || req.user.role !== "admin") {
+  console.log("USER ROLE:", req.user.role);
+
+  if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Admin access only" });
   }
   next();
 };
+
 
 module.exports = {
   auth,
