@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+
+  <script src="js/utils.js"></script>
+  <script>
+    if (getRole() !== "admin") {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<button onclick="loadAllComplaints()">View All Complaints</button>
+
+<div id="complaints"></div>
+
+<button onclick="logout()">Logout</button>
+
+<script src="js/complaints.js"></script>
+
+</body>
+</html>
