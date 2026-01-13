@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { AppProvider, useApp } from './AppContext';
-import { LandingPage } from './pages/LandingPage';
-import { AuthPage } from './pages/AuthPage';
-import { Dashboard } from './pages/Dashboard';
+import { LandingPage } from "./pages/LandingPage";
+import { AuthPage } from "./pages/AuthPage";
+import { Dashboard } from "./pages/Dashboard";
+
 
 const AppContent: React.FC = () => {
   const { user } = useApp();
